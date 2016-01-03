@@ -3,7 +3,9 @@
 #include "../solver/FloatMatrix2D.hpp"
 #include "../solver/FluidSolver2D.hpp"
 
-#include "Leap.h"
+#ifdef WITH_LEAP
+# include "Leap.h"
+#endif
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -155,12 +157,14 @@ void GUI::paintGL(){
 		     height());
 
   /* (5) Leap Motion cursors */
+#ifdef WITH_LEAP
   for (int i=0; i < fingers.size(); i++)
     _printModes[_currentPrintMode]->drawCircle(fingers[i].x / fluid->_dens->getSize(1) * width(),
                                                fingers[i].y / fluid->_dens->getSize(0) * height(),
                                                40,
                                                width(), height(),
                                                0.5f, 0.5f, 0.8f);
+#endif
 }
 
 /** 
@@ -229,11 +233,14 @@ void GUI::timeOutSlot(){
     fillSquare(20 * coef, 20 * coef, -configuration.getDt() * _fillingSpeed, fluid->_dens);
 
   /* Leap Motion */
+#ifdef WITH_LEAP
   Leap::PointableList pointables = leap.frame().pointables();
   Leap::InteractionBox iBox = leap.frame().interactionBox();
+#endif
   float windowWidth = configuration.getWidth();
   float windowHeight = configuration.getHeight();
 
+#ifdef WITH_LEAP
   fingers.clear();
 
   for( int p = 0; p < pointables.count(); p++ )
@@ -269,10 +276,8 @@ void GUI::timeOutSlot(){
       }
 
       _printModes[_currentPrintMode]->drawCircle(x, y, 40, windowWidth, windowHeight, 1., 1., 1.);
-
-
-
   }
+#endif
 
   if (!_pause){
 

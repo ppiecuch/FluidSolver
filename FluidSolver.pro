@@ -3,7 +3,18 @@ QT +=  core gui widgets opengl xml
 TARGET = FluidSolver
 TEMPLATE = app
 
-LFLAGS = -static-libgcc
+CONFIG -= app_bundle
+#CONFIG += with_leap
+
+debug: DBG = -dgb
+
+DESTDIR = build$$DBG-$$[QMAKE_SPEC]/bin
+OBJECTS_DIR = build$$DBG-$$[QMAKE_SPEC]
+MOC_DIR = build$$DBG-$$[QMAKE_SPEC]
+UI_DIR = build$$DBG-$$[QMAKE_SPEC]
+RCC_DIR = build$$DBG-$$[QMAKE_SPEC]
+
+with_leap: DEFINES += WITH_LEAP
 
 HEADERS += \
     solver/Segment.hpp \
@@ -21,10 +32,7 @@ HEADERS += \
     display/Dialog.hpp \
     display/CurvePrint.hpp \
     display/ColorPrint.hpp \
-    config.hpp \
-    display/Leap.h \
-    display/LeapMath.h \
-    display/LeapMotion.h
+    config.hpp
 
 SOURCES += \
     solver/Segment.cpp \
@@ -39,18 +47,22 @@ SOURCES += \
     display/Dialog.cpp \
     display/CurvePrint.cpp \
     display/ColorPrint.cpp \
-    config.cpp \
-    display/LeapMotion.cpp
+    config.cpp
+
+with_leap {
+	HEADERS += \
+    	display/Leap.h \
+    	display/LeapMath.h \
+    	display/LeapMotion.h
+	SOURCES += \
+		display/LeapMotion.cpp
+}
 
 FORMS += \
     display/Dialog.ui
 
 OTHER_FILES += \
     display/Leap.i
-
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ -lLeap
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ -lLeapd
-else:unix: LIBS += -L$$PWD/ -lLeap
 
 INCLUDEPATH += $$PWD/
 DEPENDPATH += $$PWD/

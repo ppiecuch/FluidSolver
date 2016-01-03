@@ -11,7 +11,9 @@
 #include "../config.hpp"
 #include "../solver/FluidSolver2D.hpp"
 #include "../solver/FloatMatrix2D.hpp"
-#include "LeapMotion.h"
+#ifdef WITH_LEAP
+# include "LeapMotion.h"
+#endif
 
 
 /**
@@ -78,8 +80,10 @@ private:
   Dialog *loadWin;
 
   // LeapMotion
+#ifdef WITH_LEAP
   Leap::Controller leap;
   QList <Leap::Vector> fingers;
+#endif
 
 
   // information displayed in the title
