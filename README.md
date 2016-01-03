@@ -62,7 +62,8 @@ Shortcuts
       Left button ........... Inject fluid density
       Right button .......... Remove fluid density
       Ctrl  + Left button ... Add a density source
-      Ctrl  + Right button .. Add obstacle
+      Ctrl  + Right button or
+      Alt   + Left button ... Add obstacle
       Shift + Left button ... Add a directionnal source
       	    a) first click to set the source position
             b) second click to set direction and speed
@@ -95,3 +96,7 @@ This project was originally an academic work of students from the _ENSEIRB-Matme
       VAGLICA Sylvain	
 
       www.enseirb-matmeca.fr
+      
+Last development:
+
+      PIECUCH Pawel
