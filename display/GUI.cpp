@@ -476,6 +476,9 @@ void GUI::mousePressEvent(QMouseEvent *mouseEvent){
       fillSquare(20 * coef, 20 * coef, 0.05, fluid->_dens_src);
       //TO DO parmeter the value with dt
     }
+    else if(modifiers == Qt::AltModifier){
+      addObstacle(20 * coef, 20 * coef);
+    }
     else{
       pressing = true;
     }
